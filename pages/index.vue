@@ -1,9 +1,14 @@
 <template>
-    <div>123</div>
+    <div>
+        <home-page />
+    </div>
 </template>
 
 <script>
-export default {};
+import HomePage from "../components/HomePage.vue";
+export default {
+    components: { HomePage },
+};
 </script>
 
 <style></style>
