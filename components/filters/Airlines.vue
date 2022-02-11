@@ -3,7 +3,7 @@
         <div class="Airlines--header">
             <p>Авиакомпании</p>
             <svg
-                @click="selected = []"
+                @click="selected = ['All']"
                 @mouseover="hovered = true"
                 @mouseleave="hovered = false"
                 width="20"
@@ -24,6 +24,15 @@
             </transition>
         </div>
         <div class="Airlines--inputs">
+            <div class="inputs">
+                <v-checkbox
+                    v-model="selected"
+                    color="success"
+                    value="All"
+                    hide-details=""
+                ></v-checkbox>
+                <p>Все</p>
+            </div>
             <div
                 class="inputs"
                 v-for="(name, value, idx) in airlines"
@@ -48,10 +57,24 @@ export default {
             type: Object,
             default: {},
         },
+        reset: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    watch: {
+        selected() {
+            if (this.selected.includes("All") && this.selected.length > 1) {
+                this.selected.shift();
+            }
+        },
+        reset() {
+            if (this.reset) this.selected = ["All"];
+        },
     },
     data: () => ({
         hovered: false,
-        selected: [],
+        selected: ["All"],
     }),
 };
 </script>

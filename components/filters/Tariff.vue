@@ -42,8 +42,17 @@ export default {
     props: {
         tariffs: {
             type: Array,
-            default: []
-          }
+            default: [],
+        },
+        reset: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    watch: {
+        reset() {
+            if (this.reset) this.selected = [];
+        },
     },
     data: () => ({
         hovered: false,

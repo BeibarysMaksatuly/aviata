@@ -2,15 +2,17 @@
     <div class="HomePage">
         <div class="container">
             <div class="filters">
-                <tariff :tariffs="tariffs" />
-                <airlines :airlines="json.airlines" />
+                <tariff :tariffs="tariffs" :reset="reset" />
+                <airlines :airlines="json.airlines" :reset="reset" />
+                <p class="reset__all" @click="reset = true">
+                    Сбросить все фильтры
+                </p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-
 import Tariff from "./filters/Tariff.vue";
 import Airlines from "./filters/Airlines.vue";
 
@@ -35,6 +37,7 @@ export default {
             },
         ],
         json: {},
+        reset: false,
     }),
     created() {
         this.json = require("@/assets/results.json");
@@ -55,10 +58,18 @@ export default {
 }
 .filters {
     div {
-        margin-bottom: 20px;
-        &:last-child {
-            margin-bottom: 0;
-        }
+        margin-bottom: 12px;
+    }
+    .reset__all {
+        width: 134px;
+
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
+        color: #7284e4;
+
+        cursor: pointer;
+        border-bottom: 1px dashed #7284e4;
     }
 }
 </style>
