@@ -3,6 +3,7 @@
         <div class="Tariff--header">
             <p>Опции тарифа</p>
             <svg
+                @click="selected = []"
                 @mouseover="hovered = true"
                 @mouseleave="hovered = false"
                 width="20"
@@ -23,14 +24,14 @@
             </transition>
         </div>
         <div class="Tariff--inputs">
-            <div v-for="(check, idx) in checkboxs" :key="idx">
-                <input
-                    @change="click()"
-                    type="checkbox"
-                    class="custom-checkbox"
-                    :id="check.id"
-                />
-                <label :for="check.id">{{ check.text }}</label>
+            <div class="inputs" v-for="(check, idx) in checkboxs" :key="idx">
+                <v-checkbox
+                    v-model="selected"
+                    color="success"
+                    :value="check.value"
+                    hide-details=""
+                ></v-checkbox>
+                <p>{{ check.text }}</p>
             </div>
         </div>
     </div>
@@ -40,26 +41,22 @@
 export default {
     data: () => ({
         hovered: false,
+        selected: [],
         checkboxs: [
             {
-                id: 1,
+                value: "straight",
                 text: "Только прямые",
             },
             {
-                id: 2,
+                value: "luggage",
                 text: "Только с багажом",
             },
             {
-                id: 3,
+                value: "returnable",
                 text: "Только возвратные",
             },
         ],
     }),
-    methods: {
-        click(qwe) {
-            console.log(qwe);
-        },
-    },
 };
 </script>
 
@@ -101,16 +98,13 @@ export default {
         }
     }
     &--inputs {
-        height: 100%;
-        max-height: 256px;
+        width: 100%;
 
         display: flex;
         flex-direction: column;
 
         margin-bottom: 12px;
-        overflow: auto;
-
-        div {
+        .inputs {
             width: 100%;
             height: 32px;
 
@@ -118,24 +112,36 @@ export default {
             flex-direction: row;
             align-items: center;
 
-            label {
+            background: transparent;
+            padding-left: 10px;
+            transition: 0.3s;
+            cursor: pointer;
+            p {
                 font-weight: normal;
                 font-size: 12px;
                 line-height: 16px;
                 color: #202123;
+            }
+            &:hover {
+                background: #ebebeb;
             }
         }
     }
 }
 .reset {
     position: absolute;
-    top: -62px;
-    right: -55px;
+    top: -48px;
+    right: -35px;
 
     padding: 12px;
     background: #ffffff;
     border: 1px solid #e1e1e1;
     border-radius: 6px;
+
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: #202123;
 
     &:before {
         content: "";
@@ -156,53 +162,5 @@ export default {
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
-}
-.custom-checkbox {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-    & + label {
-        width: 100%;
-        height: 100%;
-        display: inline-flex;
-        align-items: center;
-        user-select: none;
-        padding: 0 12px;
-        transition: 0.3s;
-        &:hover {
-            background: #ebebeb;
-        }
-    }
-    & + label::before {
-        content: "";
-        display: inline-block;
-
-        width: 12px;
-        height: 12px;
-
-        border: 1px solid #b9b9b9;
-        border-radius: 2px;
-
-        margin-right: 12px;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: 50% 50%;
-        transition: 0.3s;
-    }
-    &:checked + label::before {
-        transition: 0.3s;
-        border-color: #55bb06;
-        background-color: #55bb06;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
-    }
-    &:not(:disabled):not(:checked) + label:hover::before {
-        border-color: #55bb06;
-        transition: 0.3s;
-    }
-    &:not(:disabled):active + label::before {
-        background-color: #55bb06;
-        border-color: #55bb06;
-        transition: 0.3s;
-    }
 }
 </style>

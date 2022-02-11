@@ -1,9 +1,7 @@
 <template>
     <div class="HomePage">
         <div class="container">
-            <div>
-                <tariff />
-            </div>
+            <tariff />
         </div>
     </div>
 </template>
@@ -14,14 +12,17 @@ export default {
     components: {
         Tariff,
     },
+    data: () => ({
+        
+    })
 };
 </script>
 
 <style lang="scss" scoped>
 .HomePage {
     width: 100%;
-    height: 100vh;
-    background: #d7d7d7;
+    min-height: 100vh;
+    background: #e1e1e1;
     padding-top: 50px;
     .container {
         display: grid;
