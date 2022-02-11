@@ -24,14 +24,14 @@
             </transition>
         </div>
         <div class="Tariff--inputs">
-            <div class="inputs" v-for="(check, idx) in checkboxs" :key="idx">
+            <div class="inputs" v-for="(tariff, idx) in tariffs" :key="idx">
                 <v-checkbox
                     v-model="selected"
                     color="success"
-                    :value="check.value"
+                    :value="tariff.value"
                     hide-details=""
                 ></v-checkbox>
-                <p>{{ check.text }}</p>
+                <p>{{ tariff.text }}</p>
             </div>
         </div>
     </div>
@@ -39,23 +39,15 @@
 
 <script>
 export default {
+    props: {
+        tariffs: {
+            type: Array,
+            default: []
+          }
+    },
     data: () => ({
         hovered: false,
         selected: [],
-        checkboxs: [
-            {
-                value: "straight",
-                text: "Только прямые",
-            },
-            {
-                value: "luggage",
-                text: "Только с багажом",
-            },
-            {
-                value: "returnable",
-                text: "Только возвратные",
-            },
-        ],
     }),
 };
 </script>
