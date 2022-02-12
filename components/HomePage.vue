@@ -39,8 +39,18 @@ export default {
         json: {},
         reset: false,
     }),
+    watch: {
+        reset() {
+            if (this.reset) {
+                setTimeout(() => {
+                    this.reset = false;
+                }, 0);
+            }
+        },
+    },
     created() {
         this.json = require("@/assets/results.json");
+        console.log(decodeURI("\u0410\u043b\u043c\u0430\u0442\u044b"));
     },
 };
 </script>
