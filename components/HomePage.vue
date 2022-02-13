@@ -8,6 +8,7 @@
                     Сбросить все фильтры
                 </p>
             </div>
+            <my-tickets />
         </div>
     </div>
 </template>
@@ -15,11 +16,13 @@
 <script>
 import Tariff from "./filters/Tariff.vue";
 import Airlines from "./filters/Airlines.vue";
+import MyTickets from "./MyTickets.vue";
 
 export default {
     components: {
         Tariff,
         Airlines,
+        MyTickets,
     },
     data: () => ({
         tariffs: [
@@ -64,6 +67,8 @@ export default {
     .container {
         display: grid;
         grid-template-columns: 240px 1fr;
+        grid-gap: 20px;
+        align-items: flex-start;
     }
 }
 .filters {
