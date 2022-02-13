@@ -3,13 +3,6 @@
         <div class="detail">
             <div class="detail--header">
                 <div class="header__img">
-                    <img
-                        :src="`https://aviata.kz/static/airline-logos/80x80/${flight.validating_carrier}.png`"
-                        alt=""
-                    />
-                    <p>{{ flight.itineraries[0][0].carrier_name }}</p>
-                </div>
-                <div class="mobile__header__img">
                     <div>
                         <img
                             :src="`https://aviata.kz/static/airline-logos/80x80/${flight.validating_carrier}.png`"
@@ -17,7 +10,7 @@
                         />
                         <p>{{ flight.itineraries[0][0].carrier_name }}</p>
                     </div>
-                    <p>Нет багажа</p>
+                    <p class="header__img--mobile">Нет багажа</p>
                 </div>
                 <div class="header__flight">
                     <div class="mobile__flight">
@@ -252,24 +245,35 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     margin-right: 13px;
-    img {
-        width: 20px;
-        height: 20px;
-        object-fit: contain;
-        margin-right: 7px;
+    div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            margin-right: 7px;
+        }
+        p {
+            min-width: 100px;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 19px;
+            color: #202123;
+        }
     }
-    p {
-        min-width: 100px;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 19px;
+    &--mobile {
+        display: none;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
         color: #202123;
     }
 }
-.mobile__header__img {
-    display: none;
-}
+
 .header__flight {
     width: 100%;
     display: flex;
@@ -408,10 +412,6 @@ export default {
 }
 
 @media screen and (max-width: 1264px) {
-    .header__img {
-        margin-right: 0px;
-        margin-bottom: 15px;
-    }
     .detail {
         padding: 20px 20px 14px;
         &--header {
@@ -424,6 +424,10 @@ export default {
                 margin: 0;
             }
         }
+    }
+    .header__img {
+        margin-right: 0px;
+        margin-bottom: 15px;
     }
     .more {
         max-width: 200px;
@@ -442,47 +446,24 @@ export default {
     }
     .detail {
         padding: 18px 20px 28px;
-        &--header {
-            align-items: flex-start;
-        }
         &--footer {
             display: none;
         }
     }
+
     .header__img {
-        display: none;
-    }
-    .mobile__header__img {
         width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 27px;
+        margin-right: 0px;
         div {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            img {
-                width: 20px;
-                height: 20px;
-                object-fit: contain;
-                margin-right: 10px;
-            }
             p {
-                font-weight: 600;
-                font-size: 14px;
-                line-height: 19px;
-                color: #202123;
+                min-width: unset;
             }
         }
-        p {
-            font-weight: normal;
-            font-size: 12px;
-            line-height: 16px;
-            color: #202123;
+        &--mobile {
+            display: block;
         }
     }
+
     .header__flight {
         flex-direction: column;
         &--time {
