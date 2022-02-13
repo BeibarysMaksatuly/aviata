@@ -15,7 +15,7 @@
                             fill="#906F45"
                         />
                     </svg>
-                    <p>Air Astana</p>
+                    <p>{{flight.itineraries[0][0].carrier_name}}</p>
                 </div>
                 <div class="header__flight">
                     <div class="header__flight--time">
@@ -71,7 +71,7 @@
             </div>
         </div>
         <div class="more">
-            <p class="more--price">590 240 ₸</p>
+            <p class="more--price">{{ flight.price }} {{ flight.currency }}</p>
             <button class="more--select" v-ripple>Выбрать</button>
             <p class="more--all">Цена за всех пассажиров</p>
             <div class="more--luggage">
@@ -83,7 +83,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+    props: {
+        flight: {
+            type: Object,
+            default: {},
+        },
+    },
+    created() {
+        // console.log(this.flight);
+    },
+};
 </script>
 
 <style lang="scss" scoped>

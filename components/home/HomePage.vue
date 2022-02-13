@@ -3,20 +3,30 @@
         <div class="container">
             <div class="filters">
                 <tariff :tariffs="tariffs" :reset="reset" />
-                <airlines :airlines="json.airlines" :reset="reset" />
+                <airlines
+                    :airlines="json.airlines"
+                    :reset="reset"
+                    @selected="selected"
+                />
                 <p class="reset__all" @click="reset = true">
                     Сбросить все фильтры
                 </p>
             </div>
-            <my-tickets />
+            <div class="my-tickets">
+                <my-tickets
+                    v-for="(flight, idx) in filtered"
+                    :key="idx"
+                    :flight="flight"
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import Tariff from "./filters/Tariff.vue";
-import Airlines from "./filters/Airlines.vue";
-import MyTickets from "./MyTickets.vue";
+import Tariff from "../filters/Tariff.vue";
+import Airlines from "../filters/Airlines.vue";
+import MyTickets from "../MyTickets.vue";
 
 export default {
     components: {
@@ -41,6 +51,7 @@ export default {
         ],
         json: {},
         reset: false,
+        filtered: [],
     }),
     watch: {
         reset() {
@@ -53,7 +64,16 @@ export default {
     },
     created() {
         this.json = require("@/assets/results.json");
-        console.log(decodeURI("\u0410\u043b\u043c\u0430\u0442\u044b"));
+        this.filtered = this.json.flights;
+    },
+    methods: {
+        selected(filter) {
+            this.filtered = this.json.flights;
+            if (filter.includes("All")) return;
+            this.filtered = this.filtered.filter((x) => {
+                return filter.includes(x.validating_carrier);
+            });
+        },
     },
 };
 </script>
@@ -85,6 +105,19 @@ export default {
 
         cursor: pointer;
         border-bottom: 1px dashed #7284e4;
+    }
+}
+.my-tickets {
+    max-height: calc(100vh - 77px);
+    overflow: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    div {
+        margin-bottom: 12px;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 </style>

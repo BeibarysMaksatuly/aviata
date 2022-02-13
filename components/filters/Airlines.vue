@@ -64,9 +64,12 @@ export default {
     },
     watch: {
         selected() {
+            if (this.selected.length == 0) this.selected = ["All"];
             if (this.selected.includes("All") && this.selected.length > 1) {
                 this.selected.shift();
+                return;
             }
+            this.filter();
         },
         reset() {
             if (this.reset) this.selected = ["All"];
@@ -76,6 +79,11 @@ export default {
         hovered: false,
         selected: ["All"],
     }),
+    methods: {
+        filter() {
+            this.$emit("selected", this.selected);
+        },
+    },
 };
 </script>
 
