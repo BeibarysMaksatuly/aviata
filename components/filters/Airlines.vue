@@ -127,7 +127,7 @@ export default {
     &--inputs {
         width: 98%;
         height: 100%;
-        max-height: 240px;
+        max-height: 260px;
 
         display: flex;
         flex-direction: column;

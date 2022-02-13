@@ -120,4 +120,30 @@ export default {
         }
     }
 }
+@media screen and (max-width: 1264px) {
+    .HomePage {
+        .container {
+            padding: 0 16px !important;
+            grid-template-columns: 200px 1fr;
+        }
+    }
+}
+@media screen and (max-width: 500px) {
+    .HomePage {
+        padding-top: 16px;
+        .container {
+            display: flex;
+            flex-direction: column;
+            grid-template-columns: unset;
+            align-items: unset;
+        }
+    }
+    .my-tickets {
+        max-height: unset;
+        overflow: unset;
+        div {
+            margin-bottom: 20px;
+        }
+    }
+}
 </style>
