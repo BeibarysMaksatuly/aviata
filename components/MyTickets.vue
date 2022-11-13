@@ -1,8 +1,8 @@
 <template>
     <div class="ticket">
         <div class="detail">
-            <div class="detail--header">
-                <div class="header__img">
+            <div class="detail_header">
+                <div class="header_img">
                     <div>
                         <img
                             :src="`https://aviata.kz/static/airline-logos/80x80/${flight.validating_carrier}.png`"
@@ -10,11 +10,11 @@
                         />
                         <p>{{ flight.itineraries[0][0].carrier_name }}</p>
                     </div>
-                    <p class="header__img--mobile">Нет багажа</p>
+                    <p class="header_img__mobile">Нет багажа</p>
                 </div>
-                <div class="header__flight">
-                    <div class="mobile__flight">
-                        <div class="mobile__flight--time">
+                <div class="header_flight">
+                    <div class="mobile_flight">
+                        <div class="mobile_flight__time">
                             <p>
                                 {{
                                     converterDate(
@@ -30,7 +30,7 @@
                                 }}
                             </p>
                         </div>
-                        <div class="mobile__flight--time">
+                        <div class="mobile_flight__time">
                             <p>
                                 {{
                                     converterDate(
@@ -48,7 +48,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="header__flight--time">
+                    <div class="header_flight__time">
                         <p>
                             {{
                                 converterDate(flight.itineraries[0][0].dep_date)
@@ -62,7 +62,7 @@
                             }}
                         </p>
                     </div>
-                    <div class="header__flight--direct">
+                    <div class="header_flight__direct">
                         <div>
                             <p>
                                 {{
@@ -87,7 +87,7 @@
                         <img src="@/assets/img/0--0--0.svg" alt="" />
                         <p class="through__city">через Шымкент, 1 ч 50 м</p>
                     </div>
-                    <div class="header__flight--time">
+                    <div class="header_flight__time">
                         <p>
                             {{
                                 converterDate(flight.itineraries[0][0].arr_date)
@@ -104,9 +104,9 @@
                     </div>
                 </div>
             </div>
-            <div class="detail--footer">
-                <p class="flight__details">Детали перелета</p>
-                <p class="tariff__conditions">Условия тарифа</p>
+            <div class="detail_footer">
+                <p class="flight_details">Детали перелета</p>
+                <p class="tariff_conditions">Условия тарифа</p>
                 <div v-if="!flight.refundable">
                     <svg
                         width="20"
@@ -138,10 +138,10 @@
             </div>
         </div>
         <div class="more">
-            <p class="more--price">{{ flight.price }} ₸</p>
-            <button class="more--select" v-ripple>Выбрать</button>
-            <p class="more--all">Цена за всех пассажиров</p>
-            <div class="more--luggage">
+            <p class="more_price">{{ flight.price }} ₸</p>
+            <button class="more_select" v-ripple>Выбрать</button>
+            <p class="more_all">Цена за всех пассажиров</p>
+            <div class="more_luggage">
                 <p>Нет багажа</p>
                 <button v-ripple>+ Добавить багаж</button>
             </div>
@@ -201,18 +201,18 @@ export default {
     justify-content: space-between;
 
     padding: 40px 96px 14px 43px;
-    &--header {
+    &_header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
     }
-    &--footer {
+    &_footer {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        .flight__details,
-        .tariff__conditions {
+        .flight_details,
+        .tariff_conditions {
             font-weight: normal;
             font-size: 12px;
             line-height: 16px;
@@ -221,7 +221,7 @@ export default {
             margin-right: 23px;
             cursor: pointer;
         }
-        .tariff__conditions {
+        .tariff_conditions {
             margin-right: 46px;
         }
         div {
@@ -241,7 +241,7 @@ export default {
         }
     }
 }
-.header__img {
+.header_img {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -265,7 +265,7 @@ export default {
             color: #202123;
         }
     }
-    &--mobile {
+    &__mobile {
         display: none;
         font-weight: normal;
         font-size: 12px;
@@ -274,15 +274,15 @@ export default {
     }
 }
 
-.header__flight {
+.header_flight {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    .mobile__flight {
+    .mobile_flight {
         display: none;
     }
-    &--time {
+    &__time {
         display: flex;
         flex-direction: column;
         p:first-child {
@@ -304,7 +304,7 @@ export default {
             color: #202123;
         }
     }
-    &--direct {
+    &__direct {
         width: 100%;
         max-width: 173px;
 
@@ -354,7 +354,7 @@ export default {
     background: #f5f5f5;
     border-radius: 0px 4px 4px 0px;
 
-    &--price {
+    &_price {
         width: 100%;
         font-size: 24px;
         line-height: 28px;
@@ -362,7 +362,7 @@ export default {
         color: #202123;
         margin-bottom: 13px;
     }
-    &--select {
+    &_select {
         width: 100%;
         max-width: 200px;
         height: 40px;
@@ -377,7 +377,7 @@ export default {
 
         margin-bottom: 8px;
     }
-    &--all {
+    &_all {
         font-weight: normal;
         font-size: 12px;
         line-height: 16px;
@@ -385,7 +385,7 @@ export default {
         color: #707276;
         margin-bottom: 12px;
     }
-    &--luggage {
+    &_luggage {
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -414,24 +414,24 @@ export default {
 @media screen and (max-width: 1264px) {
     .detail {
         padding: 20px 20px 14px;
-        &--header {
+        &_header {
             flex-direction: column;
         }
-        &--footer {
+        &_footer {
             justify-content: space-between;
-            .flight__details,
-            .tariff__conditions {
+            .flight_details,
+            .tariff_conditions {
                 margin: 0;
             }
         }
     }
-    .header__img {
+    .header_img {
         margin-right: 0px;
         margin-bottom: 15px;
     }
     .more {
         max-width: 200px;
-        &--luggage {
+        &_luggage {
             flex-direction: column;
             p {
                 margin-bottom: 5px;
@@ -440,18 +440,18 @@ export default {
     }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 820px) {
     .ticket {
         flex-direction: column;
     }
     .detail {
         padding: 18px 20px 28px;
-        &--footer {
+        &_footer {
             display: none;
         }
     }
 
-    .header__img {
+    .header_img {
         width: 100%;
         margin-right: 0px;
         div {
@@ -459,22 +459,22 @@ export default {
                 min-width: unset;
             }
         }
-        &--mobile {
+        &__mobile {
             display: block;
         }
     }
 
-    .header__flight {
+    .header_flight {
         flex-direction: column;
-        &--time {
+        &__time {
             display: none;
         }
-        .mobile__flight {
+        .mobile_flight {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             margin-bottom: 32px;
-            &--time {
+            &__time {
                 display: flex;
                 flex-direction: column;
                 p:first-child {
@@ -498,7 +498,7 @@ export default {
                 }
             }
         }
-        &--direct {
+        &__direct {
             max-width: 100%;
             div {
                 margin-bottom: 20px;
@@ -517,13 +517,13 @@ export default {
         align-items: center;
 
         padding: 16px 0px;
-        &--select {
+        &_select {
             margin-bottom: 14px;
         }
-        &--all {
+        &_all {
             margin-bottom: 0px;
         }
-        &--luggage {
+        &_luggage {
             display: none;
         }
     }

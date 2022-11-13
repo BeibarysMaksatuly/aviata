@@ -1,6 +1,6 @@
 <template>
-    <div class="airlines">
-        <div class="airlines--header">
+    <div class="filter">
+        <div class="filter_header airlines_header">
             <p>Авиакомпании</p>
             <svg
                 @click="selected = ['All']"
@@ -23,7 +23,7 @@
                 <div v-if="hovered" class="reset">Сбросить выбор</div>
             </transition>
         </div>
-        <div class="airlines--inputs">
+        <div class="filter_inputs airlines_inputs">
             <v-checkbox
                 v-model="selected"
                 color="success"
@@ -84,54 +84,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.airlines {
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-    background: #f5f5f5;
-    border-radius: 4px;
-}
-.airlines--header {
-    position: relative;
-    width: 100%;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
+@import "@/assets/css/filter.scss";
+.airlines_header {
     padding: 12px 12px 16px 12px;
-    p {
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 20px;
-        color: #202123;
-    }
-    svg {
-        cursor: pointer;
-        path {
-            transition: 0.3s;
-        }
-        &:hover {
-            path {
-                fill: #7284e4;
-            }
-        }
-    }
 }
-.airlines--inputs {
+.airlines_inputs {
     width: calc(100% - 4px);
     height: 100%;
     max-height: 260px;
-
-    display: flex;
-    flex-direction: column;
-
-    margin-bottom: 12px;
     overflow: auto;
-
     &::-webkit-scrollbar {
         width: 2px;
         border-radius: 2px;
@@ -147,82 +108,5 @@ export default {
         background: #e1e1e1;
         border-radius: 2px;
     }
-}
-
-.checkbox::v-deep {
-    width: 100%;
-    height: 32px;
-
-    align-items: center;
-
-    background: transparent;
-    padding-left: 10px;
-    transition: 0.3s;
-    cursor: pointer;
-
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    label {
-        font-weight: normal;
-        font-size: 12px;
-        line-height: 16px;
-        color: #202123;
-    }
-    &:hover {
-        background: #ebebeb;
-    }
-
-    .v-input--selection-controls {
-        margin-top: 0px !important;
-        padding-top: 0px !important;
-    }
-    .v-input--selection-controls__ripple {
-        display: none;
-    }
-    .v-input--selection-controls__input {
-        width: 19px;
-        height: 19px;
-    }
-    .v-icon.v-icon {
-        font-size: 19px;
-    }
-    .v-input__slot {
-        min-height: 32px;
-    }
-}
-.reset {
-    position: absolute;
-    top: -48px;
-    right: -35px;
-
-    padding: 12px;
-    background: #ffffff;
-    border: 1px solid #e1e1e1;
-    border-radius: 6px;
-
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-    color: #202123;
-
-    &:before {
-        content: "";
-        display: block;
-        position: absolute;
-        bottom: -14px;
-        left: 50%;
-        border: 7px solid transparent;
-        border-top: 7px solid #fff;
-        -webkit-transform: translateX(-50%);
-        transform: translateX(-50%);
-    }
-}
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.3s;
-}
-.fade-enter,
-.fade-leave-to {
-    opacity: 0;
 }
 </style>
