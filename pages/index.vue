@@ -16,7 +16,7 @@
             </div>
             <div class="my_tickets">
                 <MyTickets
-                    v-for="(flight, idx) in filtered"
+                    v-for="(flight, idx) in filtered_list"
                     :key="idx"
                     :flight="flight"
                 />
@@ -27,25 +27,30 @@
 
 <script>
 export default {
-    data: () => ({
-        tariffs: [
-            {
-                value: "straight",
-                text: "Только прямые",
-            },
-            {
-                value: "luggage",
-                text: "Только с багажом",
-            },
-            {
-                value: "returnable",
-                text: "Только возвратные",
-            },
-        ],
-        json: {},
-        reset: false,
-        filtered: [],
-    }),
+    data() {
+        return {
+            tariffs: [
+                {
+                    value: "stops",
+                    text: "Только прямые",
+                },
+                {
+                    value: "baggage_options",
+                    text: "Только с багажом",
+                },
+                {
+                    value: "refundable",
+                    text: "Только возвратные",
+                },
+            ],
+            json: require("@/assets/results.json"),
+            reset: false,
+            filtered_list: [],
+        };
+    },
+    created() {
+        this.filtered_list = this.json.flights;
+    },
     watch: {
         reset() {
             if (this.reset) {
@@ -55,17 +60,38 @@ export default {
             }
         },
     },
-    created() {
-        this.json = require("@/assets/results.json");
-        this.filtered = this.json.flights;
-    },
     methods: {
-        selectedTariffs() {},
-        selectedAirlines(filter) {
-            this.filtered = this.json.flights;
-            if (filter.includes("All")) return;
-            this.filtered = this.filtered.filter((x) => {
-                return filter.includes(x.validating_carrier);
+        selectedTariffs(tariffs) {
+            this.filtered_list = this.json.flights;
+            if (tariffs.includes("stops")) {
+                this.filtered_list = this.filtered_list.filter((x) => {
+                    return x.itineraries[0][0].stops > 0;
+                });
+            }
+            if (tariffs.includes("baggage_options")) {
+                this.filtered_list = this.filtered_list.filter((x) => {
+                    return (
+                        x.itineraries[0][0].segments[0].baggage_options[0]
+                            .value > 0
+                    );
+                });
+            }
+            if (tariffs.includes("refundable")) {
+                this.filtered_list = this.filtered_list.filter((x) => {
+                    return x.refundable;
+                });
+            }
+            //     console.log(x.refundable != false);
+            //     console.log(x.itineraries[0][0].stops > 0);
+            //     console.log(
+            //         x.itineraries[0][0].segments[0].baggage_options[0].value > 0
+            //     );
+        },
+        selectedAirlines(filters) {
+            this.filtered_list = this.json.flights;
+            if (filters.includes("All")) return;
+            this.filtered_list = this.filtered_list.filter((x) => {
+                return filters.includes(x.validating_carrier);
             });
         },
     },
