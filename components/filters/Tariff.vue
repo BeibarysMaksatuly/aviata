@@ -50,15 +50,15 @@ export default {
             default: false,
         },
     },
+    data: () => ({
+        hovered: false,
+        selected: [],
+    }),
     watch: {
         reset() {
             if (this.reset) this.selected = [];
         },
     },
-    data: () => ({
-        hovered: false,
-        selected: [],
-    }),
 };
 </script>
 

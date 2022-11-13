@@ -8,9 +8,7 @@
                     :reset="reset"
                     @selected="selected"
                 />
-                <p class="reset_all" @click="reset = true">
-                    Сбросить все фильтры
-                </p>
+                <p @click="reset = true">Сбросить все фильтры</p>
             </div>
             <div class="my_tickets">
                 <MyTickets
@@ -86,7 +84,7 @@ export default {
     div {
         margin-bottom: 12px;
     }
-    .reset_all {
+    p {
         width: 134px;
 
         font-weight: normal;

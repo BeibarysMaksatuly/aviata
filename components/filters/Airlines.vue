@@ -58,6 +58,10 @@ export default {
             default: false,
         },
     },
+    data: () => ({
+        hovered: false,
+        selected: ["All"],
+    }),
     watch: {
         selected() {
             if (this.selected.length == 0) this.selected = ["All"];
@@ -71,10 +75,6 @@ export default {
             if (this.reset) this.selected = ["All"];
         },
     },
-    data: () => ({
-        hovered: false,
-        selected: ["All"],
-    }),
     methods: {
         filter() {
             this.$emit("selected", this.selected);
