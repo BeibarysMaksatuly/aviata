@@ -24,15 +24,16 @@
             </transition>
         </div>
         <div class="tariff--inputs">
-            <div class="inputs" v-for="(tariff, idx) in tariffs" :key="idx">
-                <v-checkbox
-                    v-model="selected"
-                    color="success"
-                    :value="tariff.value"
-                    hide-details=""
-                ></v-checkbox>
-                <p>{{ tariff.text }}</p>
-            </div>
+            <v-checkbox
+                v-for="(tariff, idx) in tariffs"
+                :key="idx"
+                v-model="selected"
+                :value="tariff.value"
+                :label="tariff.text"
+                color="success"
+                hide-details=""
+                class="checkbox"
+            ></v-checkbox>
         </div>
     </div>
 </template>
@@ -106,27 +107,46 @@ export default {
     flex-direction: column;
 
     margin-bottom: 12px;
-    .inputs {
-        width: 100%;
-        height: 32px;
+}
+.checkbox::v-deep {
+    width: 100%;
+    height: 32px;
 
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+    align-items: center;
 
-        background: transparent;
-        padding-left: 10px;
-        transition: 0.3s;
-        cursor: pointer;
-        p {
-            font-weight: normal;
-            font-size: 12px;
-            line-height: 16px;
-            color: #202123;
-        }
-        &:hover {
-            background: #ebebeb;
-        }
+    background: transparent;
+    padding-left: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    label {
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
+        color: #202123;
+    }
+    &:hover {
+        background: #ebebeb;
+    }
+
+    .v-input--selection-controls {
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+    }
+    .v-input--selection-controls__ripple {
+        display: none;
+    }
+    .v-input--selection-controls__input {
+        width: 19px;
+        height: 19px;
+    }
+    .v-icon.v-icon {
+        font-size: 19px;
+    }
+    .v-input__slot {
+        min-height: 32px;
     }
 }
 .reset {

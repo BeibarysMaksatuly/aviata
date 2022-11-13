@@ -1,6 +1,6 @@
 <template>
-    <div class="Airlines">
-        <div class="Airlines--header">
+    <div class="airlines">
+        <div class="airlines--header">
             <p>Авиакомпании</p>
             <svg
                 @click="selected = ['All']"
@@ -23,29 +23,25 @@
                 <div v-if="hovered" class="reset">Сбросить выбор</div>
             </transition>
         </div>
-        <div class="Airlines--inputs">
-            <div class="inputs">
-                <v-checkbox
-                    v-model="selected"
-                    color="success"
-                    value="All"
-                    hide-details=""
-                ></v-checkbox>
-                <p>Все</p>
-            </div>
-            <div
-                class="inputs"
+        <div class="airlines--inputs">
+            <v-checkbox
+                v-model="selected"
+                color="success"
+                value="All"
+                label="Все"
+                hide-details=""
+                class="checkbox"
+            ></v-checkbox>
+            <v-checkbox
                 v-for="(name, value, idx) in airlines"
                 :key="idx"
-            >
-                <v-checkbox
-                    v-model="selected"
-                    color="success"
-                    :value="value"
-                    hide-details=""
-                ></v-checkbox>
-                <p>{{ name }}</p>
-            </div>
+                v-model="selected"
+                :value="value"
+                :label="name"
+                color="success"
+                hide-details=""
+                class="checkbox"
+            ></v-checkbox>
         </div>
     </div>
 </template>
@@ -88,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.Airlines {
+.airlines {
     width: 100%;
 
     display: flex;
@@ -96,83 +92,102 @@ export default {
 
     background: #f5f5f5;
     border-radius: 4px;
-    &--header {
-        position: relative;
-        width: 100%;
+}
+.airlines--header {
+    position: relative;
+    width: 100%;
 
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-        padding: 12px;
-        p {
-            font-weight: bold;
-            font-size: 14px;
-            line-height: 20px;
-            color: #202123;
+    padding: 12px 12px 16px 12px;
+    p {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        color: #202123;
+    }
+    svg {
+        cursor: pointer;
+        path {
+            transition: 0.3s;
         }
-        svg {
-            cursor: pointer;
+        &:hover {
             path {
-                transition: 0.3s;
-            }
-            &:hover {
-                path {
-                    fill: #7284e4;
-                }
+                fill: #7284e4;
             }
         }
     }
-    &--inputs {
-        width: 98%;
-        height: 100%;
-        max-height: 260px;
+}
+.airlines--inputs {
+    width: calc(100% - 4px);
+    height: 100%;
+    max-height: 260px;
 
-        display: flex;
-        flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-        margin-bottom: 12px;
-        overflow: auto;
+    margin-bottom: 12px;
+    overflow: auto;
 
-        &::-webkit-scrollbar {
-            width: 2px;
-            border-radius: 2px;
-        }
-        &::-webkit-scrollbar-track {
-            width: 4px;
-            background: #f5f5f5;
-            border-radius: 2px;
-        }
-        &::-webkit-scrollbar-thumb {
-            width: 2px;
-            height: auto !important;
-            background: #e1e1e1;
-            border-radius: 2px;
-        }
+    &::-webkit-scrollbar {
+        width: 2px;
+        border-radius: 2px;
+    }
+    &::-webkit-scrollbar-track {
+        width: 4px;
+        background: #f5f5f5;
+        border-radius: 2px;
+    }
+    &::-webkit-scrollbar-thumb {
+        width: 2px;
+        height: auto !important;
+        background: #e1e1e1;
+        border-radius: 2px;
+    }
+}
 
-        .inputs {
-            width: 100%;
-            height: 32px;
+.checkbox::v-deep {
+    width: 100%;
+    height: 32px;
 
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+    align-items: center;
 
-            background: transparent;
-            padding-left: 10px;
-            transition: 0.3s;
-            cursor: pointer;
-            p {
-                font-weight: normal;
-                font-size: 12px;
-                line-height: 16px;
-                color: #202123;
-            }
-            &:hover {
-                background: #ebebeb;
-            }
-        }
+    background: transparent;
+    padding-left: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    label {
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
+        color: #202123;
+    }
+    &:hover {
+        background: #ebebeb;
+    }
+
+    .v-input--selection-controls {
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+    }
+    .v-input--selection-controls__ripple {
+        display: none;
+    }
+    .v-input--selection-controls__input {
+        width: 19px;
+        height: 19px;
+    }
+    .v-icon.v-icon {
+        font-size: 19px;
+    }
+    .v-input__slot {
+        min-height: 32px;
     }
 }
 .reset {
