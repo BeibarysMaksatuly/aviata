@@ -4,41 +4,6 @@
     </v-app>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style lang="scss">
-* {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-.container {
-    width: 100%;
-    padding: 0px !important;
-    margin-right: auto;
-    margin-left: auto;
-}
-@media (min-width: 960px) {
-    .container {
-        max-width: 900px;
-    }
-}
-@media (min-width: 1264px) {
-    .container {
-        max-width: 1140px;
-    }
-}
-@media (min-width: 1904px) {
-    .container {
-        max-width: 1140px;
-    }
-}
-.v-application {
-    line-height: 1;
-}
-.v-application p {
-    margin-bottom: 0px;
-}
+@import "@/assets/css/custom.scss";
 </style>

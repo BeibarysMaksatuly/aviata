@@ -1,5 +1,5 @@
 <template>
-    <div class="MyTickets">
+    <div class="ticket">
         <div class="detail">
             <div class="detail--header">
                 <div class="header__img">
@@ -84,7 +84,7 @@
                                 }}
                             </p>
                         </div>
-                        <img src="@/assets\img\0--0--0.svg" alt="" />
+                        <img src="@/assets/img/0--0--0.svg" alt="" />
                         <p class="through__city">через Шымкент, 1 ч 50 м</p>
                     </div>
                     <div class="header__flight--time">
@@ -183,7 +183,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.MyTickets {
+.ticket {
     width: 100%;
 
     display: flex;
@@ -441,7 +441,7 @@ export default {
 }
 
 @media screen and (max-width: 800px) {
-    .MyTickets {
+    .ticket {
         flex-direction: column;
     }
     .detail {
