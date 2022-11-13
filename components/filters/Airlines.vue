@@ -69,15 +69,15 @@ export default {
                 this.selected.shift();
                 return;
             }
-            this.filter();
+            this.selectedAirlines();
         },
         reset() {
             if (this.reset) this.selected = ["All"];
         },
     },
     methods: {
-        filter() {
-            this.$emit("selected", this.selected);
+        selectedAirlines() {
+            this.$emit("selectedAirlines", this.selected);
         },
     },
 };

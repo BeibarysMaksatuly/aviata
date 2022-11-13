@@ -2,11 +2,15 @@
     <div class="home">
         <div class="container">
             <div class="filters">
-                <FiltersTariff :tariffs="tariffs" :reset="reset" />
+                <FiltersTariff
+                    :tariffs="tariffs"
+                    :reset="reset"
+                    @selectedTariffs="selectedTariffs"
+                />
                 <FiltersAirlines
                     :airlines="json.airlines"
                     :reset="reset"
-                    @selected="selected"
+                    @selectedAirlines="selectedAirlines"
                 />
                 <p @click="reset = true">Сбросить все фильтры</p>
             </div>
@@ -56,7 +60,8 @@ export default {
         this.filtered = this.json.flights;
     },
     methods: {
-        selected(filter) {
+        selectedTariffs() {},
+        selectedAirlines(filter) {
             this.filtered = this.json.flights;
             if (filter.includes("All")) return;
             this.filtered = this.filtered.filter((x) => {

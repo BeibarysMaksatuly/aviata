@@ -55,6 +55,9 @@ export default {
         selected: [],
     }),
     watch: {
+        selected() {
+            this.$emit("selectedTariffs", this.selected);
+        },
         reset() {
             if (this.reset) this.selected = [];
         },
