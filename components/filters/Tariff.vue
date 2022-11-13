@@ -1,6 +1,6 @@
 <template>
-    <div class="Tariff">
-        <div class="Tariff--header">
+    <div class="tariff">
+        <div class="tariff--header">
             <p>Опции тарифа</p>
             <svg
                 @click="selected = []"
@@ -23,7 +23,7 @@
                 <div v-if="hovered" class="reset">Сбросить выбор</div>
             </transition>
         </div>
-        <div class="Tariff--inputs">
+        <div class="tariff--inputs">
             <div class="inputs" v-for="(tariff, idx) in tariffs" :key="idx">
                 <v-checkbox
                     v-model="selected"
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.Tariff {
+.tariff {
     width: 100%;
 
     display: flex;
@@ -70,62 +70,62 @@ export default {
 
     background: #f5f5f5;
     border-radius: 4px;
-    &--header {
-        position: relative;
-        width: 100%;
+}
+.tariff--header {
+    position: relative;
+    width: 100%;
 
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-        padding: 12px;
-        p {
-            font-weight: bold;
-            font-size: 14px;
-            line-height: 20px;
-            color: #202123;
+    padding: 12px;
+    p {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        color: #202123;
+    }
+    svg {
+        cursor: pointer;
+        path {
+            transition: 0.3s;
         }
-        svg {
-            cursor: pointer;
+        &:hover {
             path {
-                transition: 0.3s;
-            }
-            &:hover {
-                path {
-                    fill: #7284e4;
-                }
+                fill: #7284e4;
             }
         }
     }
-    &--inputs {
+}
+.tariff--inputs {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 12px;
+    .inputs {
         width: 100%;
+        height: 32px;
 
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
 
-        margin-bottom: 12px;
-        .inputs {
-            width: 100%;
-            height: 32px;
-
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            background: transparent;
-            padding-left: 10px;
-            transition: 0.3s;
-            cursor: pointer;
-            p {
-                font-weight: normal;
-                font-size: 12px;
-                line-height: 16px;
-                color: #202123;
-            }
-            &:hover {
-                background: #ebebeb;
-            }
+        background: transparent;
+        padding-left: 10px;
+        transition: 0.3s;
+        cursor: pointer;
+        p {
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 16px;
+            color: #202123;
+        }
+        &:hover {
+            background: #ebebeb;
         }
     }
 }
