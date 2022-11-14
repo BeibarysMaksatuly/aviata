@@ -3,7 +3,7 @@
         <div class="filter_header airlines_header">
             <p>Авиакомпании</p>
             <svg
-                @click="selected = ['All']"
+                @click="resetFilter"
                 @mouseover="hovered = true"
                 @mouseleave="hovered = false"
                 width="20"
@@ -25,14 +25,6 @@
         </div>
         <div class="filter_inputs airlines_inputs">
             <v-checkbox
-                v-model="selected"
-                color="success"
-                value="All"
-                label="Все"
-                hide-details=""
-                class="checkbox"
-            ></v-checkbox>
-            <v-checkbox
                 v-for="(name, value, idx) in airlines"
                 :key="idx"
                 v-model="selected"
@@ -41,6 +33,7 @@
                 color="success"
                 hide-details=""
                 class="checkbox"
+                @change="handleChangeAirlines"
             ></v-checkbox>
         </div>
     </div>
@@ -53,31 +46,21 @@ export default {
             type: Object,
             default: {},
         },
-        reset: {
-            type: Boolean,
-            default: false,
-        },
     },
     data: () => ({
         hovered: false,
         selected: ["All"],
     }),
-    watch: {
-        selected() {
+    methods: {
+        handleChangeAirlines() {
             if (this.selected.length == 0) this.selected = ["All"];
             if (this.selected.includes("All") && this.selected.length > 1) {
                 this.selected.shift();
-                return;
             }
-            this.selectedAirlines();
-        },
-        reset() {
-            if (this.reset) this.selected = ["All"];
-        },
-    },
-    methods: {
-        selectedAirlines() {
             this.$emit("selectedAirlines", this.selected);
+        },
+        resetFilter() {
+            this.selected = ["All"];
         },
     },
 };

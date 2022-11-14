@@ -3,16 +3,16 @@
         <div class="container">
             <div class="filters">
                 <FiltersTariff
+                    ref="filtersTariff"
                     :tariffs="tariffs"
-                    :reset="reset"
                     @selectedTariffs="selectedTariffs"
                 />
                 <FiltersAirlines
-                    :airlines="json.airlines"
-                    :reset="reset"
+                    ref="filtersAirlines"
+                    :airlines="airlines"
                     @selectedAirlines="selectedAirlines"
                 />
-                <p @click="reset = true">Сбросить все фильтры</p>
+                <p @click="resetFilters">Сбросить все фильтры</p>
             </div>
             <div class="my_tickets">
                 <MyTickets
@@ -43,56 +43,68 @@ export default {
                     text: "Только возвратные",
                 },
             ],
+            airlines: {},
             json: require("@/assets/results.json"),
-            reset: false,
             filtered_list: [],
+            selected_tariffs: [],
+            selected_airlines: [],
         };
     },
     created() {
         this.filtered_list = this.json.flights;
-    },
-    watch: {
-        reset() {
-            if (this.reset) {
-                setTimeout(() => {
-                    this.reset = false;
-                }, 0);
-            }
-        },
+        this.airlines = {
+            All: "Все",
+            ...this.json.airlines,
+        };
     },
     methods: {
-        selectedTariffs(tariffs) {
-            this.filtered_list = this.json.flights;
-            if (tariffs.includes("stops")) {
-                this.filtered_list = this.filtered_list.filter((x) => {
+        filterResults() {
+            let results = this.json.flights;
+
+            // опции тарифа
+            if (this.selected_tariffs.includes("stops")) {
+                results = results.filter((x) => {
                     return x.itineraries[0][0].stops > 0;
                 });
             }
-            if (tariffs.includes("baggage_options")) {
-                this.filtered_list = this.filtered_list.filter((x) => {
+            if (this.selected_tariffs.includes("baggage_options")) {
+                results = results.filter((x) => {
                     return (
                         x.itineraries[0][0].segments[0].baggage_options[0]
                             .value > 0
                     );
                 });
             }
-            if (tariffs.includes("refundable")) {
-                this.filtered_list = this.filtered_list.filter((x) => {
+            if (this.selected_tariffs.includes("refundable")) {
+                results = results.filter((x) => {
                     return x.refundable;
                 });
             }
-            //     console.log(x.refundable != false);
-            //     console.log(x.itineraries[0][0].stops > 0);
-            //     console.log(
-            //         x.itineraries[0][0].segments[0].baggage_options[0].value > 0
-            //     );
+
+            // авиакомпании
+            if (this.selected_airlines.includes("All")) {
+                this.filtered_list = results;
+                return;
+            } else if (this.selected_airlines.length) {
+                results = results.filter((x) => {
+                    return this.selected_airlines.includes(
+                        x.validating_carrier
+                    );
+                });
+            }
+            this.filtered_list = results;
+        },
+        selectedTariffs(tariffs) {
+            this.selected_tariffs = tariffs;
+            this.filterResults();
         },
         selectedAirlines(filters) {
-            this.filtered_list = this.json.flights;
-            if (filters.includes("All")) return;
-            this.filtered_list = this.filtered_list.filter((x) => {
-                return filters.includes(x.validating_carrier);
-            });
+            this.selected_airlines = filters;
+            this.filterResults();
+        },
+        resetFilters() {
+            this.$refs.filtersTariff.resetFilter();
+            this.$refs.filtersAirlines.resetFilter();
         },
     },
 };
@@ -104,11 +116,24 @@ export default {
     min-height: 100vh;
     background: #e1e1e1;
     padding-top: 50px;
+    @media screen and (max-width: 500px) {
+        padding-top: 16px;
+    }
     .container {
         display: grid;
         grid-template-columns: 240px 1fr;
         grid-gap: 20px;
         align-items: flex-start;
+        @media screen and (max-width: 1264px) {
+            padding: 0 16px !important;
+            grid-template-columns: 200px 1fr;
+        }
+        @media screen and (max-width: 500px) {
+            display: flex;
+            flex-direction: column;
+            grid-template-columns: unset;
+            align-items: unset;
+        }
     }
 }
 .filters {
@@ -130,39 +155,20 @@ export default {
 .my_tickets {
     max-height: calc(100vh - 77px);
     overflow: auto;
+    @media screen and (max-width: 500px) {
+        max-height: unset;
+        overflow: unset;
+    }
     &::-webkit-scrollbar {
         display: none;
     }
     div {
         margin-bottom: 12px;
+        @media screen and (max-width: 500px) {
+            margin-bottom: 20px;
+        }
         &:last-child {
             margin-bottom: 0;
-        }
-    }
-}
-@media screen and (max-width: 1264px) {
-    .home {
-        .container {
-            padding: 0 16px !important;
-            grid-template-columns: 200px 1fr;
-        }
-    }
-}
-@media screen and (max-width: 500px) {
-    .home {
-        padding-top: 16px;
-        .container {
-            display: flex;
-            flex-direction: column;
-            grid-template-columns: unset;
-            align-items: unset;
-        }
-    }
-    .my_tickets {
-        max-height: unset;
-        overflow: unset;
-        div {
-            margin-bottom: 20px;
         }
     }
 }

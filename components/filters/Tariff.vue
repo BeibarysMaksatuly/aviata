@@ -3,7 +3,7 @@
         <div class="filter_header">
             <p>Опции тарифа</p>
             <svg
-                @click="selected = []"
+                @click="resetFilter"
                 @mouseover="hovered = true"
                 @mouseleave="hovered = false"
                 width="20"
@@ -33,6 +33,7 @@
                 color="success"
                 hide-details=""
                 class="checkbox"
+                @change="handleChangeTariff"
             ></v-checkbox>
         </div>
     </div>
@@ -45,21 +46,17 @@ export default {
             type: Array,
             default: [],
         },
-        reset: {
-            type: Boolean,
-            default: false,
-        },
     },
     data: () => ({
         hovered: false,
         selected: [],
     }),
-    watch: {
-        selected() {
+    methods: {
+        handleChangeTariff() {
             this.$emit("selectedTariffs", this.selected);
         },
-        reset() {
-            if (this.reset) this.selected = [];
+        resetFilter() {
+            this.selected = [];
         },
     },
 };

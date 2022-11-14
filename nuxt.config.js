@@ -19,7 +19,6 @@ export default {
     ],
     components: true,
     buildModules: [
-        // https://go.nuxtjs.dev/vuetify
         '@nuxtjs/vuetify',
     ],
     vuetify: {
